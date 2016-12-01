@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <name>Visual Melody</name>
+    <key>visualmelody</key>
+    <description>Keep your scores on oxwall!</description>
+    <author>Luca Peppe</author>
+    <authorEmail>plugins@oxwall.org</authorEmail>
+    <authorUrl>http://www.skalfa.com</authorUrl>
+    <developerKey>06e368c2fdfd9958e61fe9a0a66dbecc</developerKey>
+    <build>1</build>
+    <copyright>(C) 2009 Skalfa LLC. All rights reserved.</copyright>
+    <license>The BSD License</license>
+    <licenseUrl>http://www.opensource.org/licenses/bsd-license.php</licenseUrl>
+</plugin>
