@@ -1,30 +1,30 @@
 <div id="firstDiv">
-    <table class="ow_table_1 ow_form ow_automargin ow_superwide">
+    <table class="ow_table_2 ow_form ow_automargin ow_superwide">
         <tr class="ow_alt1">
             <td class="ow_value">
                 <label class="descr">Time signature: </label><br/>
                 <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default active">
+                    <label class="btn btn-default active" name="timeLab">
                         <input type="radio" name="time" id="2/2" autocomplete="off" checked>
                         2<br/>2
                     </label>
-                    <label class="btn btn-default">
+                    <label class="btn btn-default" name="timeLab">
                         <input type="radio" name="time" id="2/4" autocomplete="off">
                         2<br/>4
                     </label>
-                    <label class="btn btn-default">
+                    <label class="btn btn-default" name="timeLab">
                         <input type="radio" name="time" id="3/4" autocomplete="off">
                         3<br/>4
                     </label>
-                    <label class="btn btn-default">
+                    <label class="btn btn-default" name="timeLab">
                         <input type="radio" name="time" id="4/4" autocomplete="off">
                         4<br/>4
                     </label>
-                    <label class="btn btn-default">
+                    <label class="btn btn-default" name="timeLab">
                         <input type="radio" name="time" id="3/8" autocomplete="off">
                         3<br/>8
                     </label>
-                    <label class="btn btn-default">
+                    <label class="btn btn-default" name="timeLab">
                         <input type="radio" name="time" id="6/8" autocomplete="off">
                         6<br/>8
                     </label>
@@ -32,10 +32,16 @@
             </td>
         </tr>
         <tr>
-            <td class="ow_value">
+            <td>
                 <label class="descr">Key signature: </label><br/>
                 <select id="ks">
                 </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="ow_value">
+                <label class="descr">Preview: </label><br/>
+                <div id="prev"></div>
             </td>
         </tr>
         <tr>

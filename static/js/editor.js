@@ -1,4 +1,3 @@
-//$(document).ready(function () {
 function render() {
     var VF = Vex.Flow;
     var canvas = document.getElementById("score");
@@ -27,7 +26,8 @@ function render() {
     processStaves();
     drawStaves();
     canvas.addEventListener("click", addNote, false);
-    altoNotes.push(new Vex.Flow.StaveNote({clef: "treble", keys: ["a/4"], duration: "h"}));
+    altoNotes.push(new Vex.Flow.StaveNote({clef: "treble", keys: ["a/4"], duration: "h"}),
+        new Vex.Flow.StaveNote({clef: "treble", keys: ["a/4"], duration: "h"}));
     altoVoice.setStrict(false);
     altoVoice.addTickables(altoNotes);
     var formatter = new VF.Formatter().joinVoices([altoVoice]).format([altoVoice], 400);
@@ -69,15 +69,6 @@ function render() {
     function drawStaves() {
         trebleStave.setContext(ctx).draw();
         bassStave.setContext(ctx).draw();
-    }
-
-    //return the radio element selected with the given name
-    function getRadioSelected(name) {
-        var elements = document.getElementsByName(name);
-        for (i = 0; i < elements.length; i++) {
-            if (elements[i].checked)
-                return elements[i].id;
-        }
     }
 
     //check if there are no notes to display
@@ -163,4 +154,12 @@ function render() {
         }
     }
 }
-//});
+
+//return the radio element selected with the given name
+function getRadioSelected(name) {
+    var elements = document.getElementsByName(name);
+    for (i = 0; i < elements.length; i++) {
+        if (elements[i].checked)
+            return elements[i].id;
+    }
+}
