@@ -1,16 +1,3 @@
-/*$(document).ready(function () {
-    var keySig = document.getElementById("ks");
-    Object.keys(Vex.Flow.keySignature.keySpecs).forEach(function (key) {
-        var option = document.createElement("option");
-        option.text = key;
-        keySig.add(option);
-    });
-    document.getElementById("next").addEventListener("click", function () {
-        document.getElementById("firstDiv").style.display = "none";
-        document.getElementById("secondDiv").style.display = "block";
-        render();
-    }, false);
-});*/
 $(document).ready(function () {
     var keySig = document.getElementById("ks");
     Object.keys(Vex.Flow.keySignature.keySpecs).forEach(function (key) {
@@ -18,12 +5,18 @@ $(document).ready(function () {
         option.text = key;
         keySig.add(option);
     });
+     var ren = new Renderer();
     document.getElementById("next").addEventListener("click", function () {
         document.getElementById("firstDiv").style.display = "none";
         document.getElementById("secondDiv").style.display = "block";
-        render();
+        ren.init();
     }, false);
-
+    document.getElementById("save").addEventListener("click", function () {
+        ren.saveData();
+    });
+    document.getElementById("load").addEventListener("click", function () {
+        ren.loadData();
+    });
     document.getElementById("ks").addEventListener("change", preview, false);
     var elements = document.getElementsByName("timeLab");
     for (i = 0; i < elements.length; i++)
@@ -49,4 +42,3 @@ $(document).ready(function () {
     }
 
 });
-
