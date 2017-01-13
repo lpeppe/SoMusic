@@ -1,7 +1,7 @@
-<div class="section" id="firstDiv">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
+<div id="firstDiv">
+    <table class="ow_table_2 ow_form ow_automargin ow_superwide">
+        <tr class="ow_alt1">
+            <td class="ow_value">
                 <label class="descr">Time signature: </label><br/>
                 <div class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default active" name="timeLab">
@@ -29,23 +29,27 @@
                         6<br/>8
                     </label>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <label class="descr">Key signature: </label><br/>
                 <select id="ks">
                 </select>
-            </div>
-            <div class="col-md-6" id="prev">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            </td>
+        </tr>
+        <tr>
+            <td class="ow_value">
+                <label class="descr">Preview: </label><br/>
+                <div id="prev"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ow_value">
                 <button type="button" class="btn btn-default" id="next">Next></button>
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+    </table>
 </div>
 <div class="section" id="secondDiv" style="display: none">
     <div class="container">
