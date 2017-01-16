@@ -1,2 +1,2 @@
 <?php
-    BOL_LanguageService::getInstance()->addPrefix('visualmelody', 'Visual Melody');
+    //BOL_LanguageService::getInstance()->addPrefix('visualmelody', 'Visual Melody');

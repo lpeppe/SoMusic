@@ -1,2 +1,2 @@
 <?php
-OW::getNavigation()->deleteMenuItem('vm', 'routing_vm_menu_item');
+//OW::getNavigation()->deleteMenuItem('vm', 'routing_vm_menu_item');
