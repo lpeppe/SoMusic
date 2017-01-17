@@ -11,11 +11,8 @@ $(document).ready(function () {
         document.getElementById("secondDiv").style.display = "block";
         ren.init();
     }, false);
-    document.getElementById("save").addEventListener("click", function () {
+    document.getElementById("add").addEventListener("click", function () {
         ren.saveData();
-    });
-    document.getElementById("load").addEventListener("click", function () {
-        ren.loadData();
     });
     document.getElementById("ks").addEventListener("change", preview, false);
     var elements = document.getElementsByName("timeLab");

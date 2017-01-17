@@ -273,11 +273,15 @@ Renderer.prototype.addNote = function (e) {
     var voice = getRadioSelected("voice");
     var pitch = r.calculatePitch(e, voice);
     var newNote;
+    if(pitch.split("/")[0] == "b" || pitch.split("/")[0] == "e" && accidental == "#")
+        accidental = "clear"
+    if(pitch.split("/")[0] == "f" || pitch.split("/")[0] == "c" && accidental == "b")
+        accidental = "clear"
     if (voice == "basso" || voice == "tenore")
         newNote = new Vex.Flow.StaveNote({clef: "bass", keys: [pitch], duration: duration});
     else
         newNote = new Vex.Flow.StaveNote({clef: "treble", keys: [pitch], duration: duration});
-    if (accidental != "clear")
+    if (accidental != "clear" && !newNote.isRest())
         newNote.addAccidental(0, new VF.Accidental(accidental));
     var i = r.getMeasureIndex(e.clientX - canvas.getBoundingClientRect().left);
     if (r.measures[i].isEmpty())
@@ -414,7 +418,8 @@ Renderer.prototype.saveData = function () {
             measure.ties.push(new TieData(r.measures[i].ties[k][1], r.measures[i].ties[k][2]))
         data.measures.push(measure);
     }
-    r.user = r.connection.login("slech92@gmail.com", "Simone92", data);
+    //r.user = r.connection.login("slech92@gmail.com", "Simone92", data);
+
 }
 
 Renderer.prototype.loadData = function () {
@@ -422,7 +427,6 @@ Renderer.prototype.loadData = function () {
 }
 
 Renderer.prototype.restoreData = function (data) {
-    console.log(data)
     r.timeSign = data["timeSign"]
     r.beatNum = r.timeSign.split("/")[0];
     r.beatValue = r.timeSign.split("/")[1];
