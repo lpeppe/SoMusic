@@ -12,17 +12,15 @@ $(document).ready(function () {
         ren.init();
     }, false);
     document.getElementById("add").addEventListener("click", function () {
-        var data = ren.saveData();
-        var score = parent.document.getElementById("feed_score");
-        var scoreDiv = parent.document.getElementById("feed_scoreDiv");
-        var vmCanvas = parent.document.getElementById("feed_vmCanvas");
+        var vmData = ren.saveData();
+        $('input[name=vmHidden]').val(JSON.stringify(vmData));
         var ren2 = new Renderer("feed_score", "feed_scoreDiv", "feed_vmCanvas");
-        parent.document.getElementById("vm_placeholder").style.display = "block";
-        ren2.restoreData(data);
+        document.getElementById("vm_placeholder").style.display = "block";
+        ren2.restoreData(vmData);
     });
     document.getElementById("ks").addEventListener("change", preview, false);
     var elements = document.getElementsByName("timeLab");
-    for (i = 0; i < elements.length; i++)
+    for (var i = 0; i < elements.length; i++)
         elements[i].addEventListener("click", preview, false);
     document.getElementById("ks").addEventListener("change", preview, false);
     var prevDiv = document.getElementById("prev");

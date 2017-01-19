@@ -43,5 +43,12 @@ class VISUALMELODY_CLASS_EventHandler
             //Add ODE.JS script to all the Oxwall pages and set THEME_IMAGES_URL variable with theme image url
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'visualmelody.js', 'text/javascript');
         }
+        $js = UTIL_JsGenerator::composeJsString('
+                VISUALMELODY.ajax_add_comment = {$ajax_add_comment}
+            ', array(
+            'ajax_add_comment' => OW::getRouter()->urlFor('VISUALMELODY_CTRL_Ajax', 'addComment'),
+        ));
+
+        OW::getDocument()->addOnloadScript($js);
     }
 }

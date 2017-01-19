@@ -1,2 +1,20 @@
 <?php
-    //BOL_LanguageService::getInstance()->addPrefix('visualmelody', 'Visual Melody');
+$sql = 'CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'visual_melody` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_owner` int(11) NOT NULL,
+  `data` mediumtext NOT NULL,
+  `title` varchar(255),
+  `description` varchar(255),
+  `timestamp_c` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `timestamp_m` TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'visual_melody_post` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id_melody` int(11) NOT NULL,
+    `id_post` int(11) NOT NULL,
+    PRIMARY KEY (`id`)
+    )ENGINE=MyISAM  DEFAULT CHARSET=utf8;';
+
+OW::getDbo()->query($sql);
