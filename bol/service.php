@@ -37,4 +37,24 @@ class VISUALMELODY_BOL_Service
         VISUALMELODY_BOL_VisualmelodyPostDao::getInstance()->save($dt2);
         return $dt;
     }
+
+    public function getScoreByPostId($id)
+    {
+        $dbo = OW::getDbo();
+        $query = "SELECT *
+                  FROM ow_visual_melody_post JOIN ow_visual_melody ON ow_visual_melody_post.id_melody = ow_visual_melody.id
+                  WHERE ow_visual_melody_post.id_post = " . $id . ";";
+        return $dbo->queryForRow($query);
+    }
+
+    public function deleteScoreById($id)
+    {
+        $dbo = OW::getDbo();
+        $query = "DELETE FROM ow_visual_melody, ow_visual_melody_post 
+                  USING ow_visual_melody_post 
+                  INNER JOIN ow_visual_melody 
+                  ON ow_visual_melody_post.id_melody = ow_visual_melody.id  
+                  WHERE ow_visual_melody_post.id_post = ".$id.';';
+        $dbo->query($query);
+    }
 }

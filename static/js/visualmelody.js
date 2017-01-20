@@ -1,5 +1,9 @@
 VISUALMELODY = {}
 
+document.getElementsByName("save")[0].addEventListener("click", function (e) {
+    document.getElementById("vm_placeholder").style.display = "none";
+});
+
 OwComments.prototype.initTextarea = function()
 {
     var self = this;
@@ -71,7 +75,6 @@ OwComments.prototype.initTextarea = function()
 
 VISUALMELODY.commentSendMessage = function(message, context)
 {
-    console.log('hi')
     var self = context;
     var dataToSend = {
         entityType: self.entityType,
@@ -115,8 +118,27 @@ VISUALMELODY.commentSendMessage = function(message, context)
             OW.error(textStatus);
         },
         complete: function(){
-
         }
     });
     self.$textarea.val('').keyup().trigger('input.autosize');
 };
+
+VISUALMELODY.loadScore = function (data, id, title) {
+    var scoreDiv = document.getElementById(id);
+    var titleField = document.createElement("p");
+    var nodeText = document.createTextNode(title);
+    titleField.appendChild(nodeText);
+    scoreDiv.appendChild(nodeText);
+    var scoreCanvas =  document.createElement('canvas');
+    scoreCanvas.height = 600;
+    scoreCanvas.width = 800;
+    scoreCanvas.id = id + "_sc";
+    var vmCanvas = document.createElement('canvas');
+    vmCanvas.height = 130;
+    vmCanvas.width = 800;
+    vmCanvas.id = id + "_vmc";
+    scoreDiv.appendChild(scoreCanvas);
+    scoreDiv.appendChild(vmCanvas);
+    var renderer = new Renderer(scoreCanvas.id, id, vmCanvas.id);
+    renderer.restoreData(data);
+}

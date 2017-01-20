@@ -19,6 +19,8 @@ class VISUALMELODY_CLASS_EventHandler
         // event that allows returning a component to replace the standard status update form
         OW::getEventManager()->bind('feed.get_status_update_cmp', array($this, 'onStatusUpdateCreate'));
         OW::getEventManager()->bind(OW_EventManager::ON_APPLICATION_INIT, array($this, 'onApplicationInit'));
+        OW::getEventManager()->bind('feed.on_item_render', array($this, 'onItemRender'));
+        OW::getEventManager()->bind('feed.before_action_delete', array($this, 'onBeforePostDelete'));
     }
 
     // Replace the newsfeed form
@@ -38,6 +40,11 @@ class VISUALMELODY_CLASS_EventHandler
 
     public function onApplicationInit(OW_Event $event)
     {
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'vexflow-debug.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'editorData.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'visual-melody.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'measure.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'editor.js', 'text/javascript');
         // if request is Ajax, we don't need to re-execute the same code again!
         if (!OW::getRequest()->isAjax()) {
             //Add ODE.JS script to all the Oxwall pages and set THEME_IMAGES_URL variable with theme image url
@@ -50,5 +57,29 @@ class VISUALMELODY_CLASS_EventHandler
         ));
 
         OW::getDocument()->addOnloadScript($js);
+    }
+    public function onItemRender(OW_Event $event)
+    {
+        //Get parameter for check pluginKey for this event
+        $params = $event->getParams();
+        $data = $event->getData();
+        $scoreData = VISUALMELODY_BOL_Service::getInstance()->getScoreByPostId($params['action']['entityId']);
+        //$data['content']['vars']['status'] .= " ciao " . $params['action']['entityId'];
+        //$data['content']['vars']['status'] .= $scoreData['data'];
+        if(!empty($scoreData)) {
+            $data['content']['vars']['status'] .= '<div class="score_placeholder" id="score_placeholder_' .
+                $scoreData['id_post'] .'" style = "overflow-x: auto; overflow-y: hidden;' .'"></div>';
+            OW::getDocument()->addOnloadScript('VISUALMELODY.loadScore(' . $scoreData['data'] .
+                ',"score_placeholder_' . $scoreData['id_post'] . '","'.$scoreData['title'].'");');
+        }
+        $event->setData($data);
+    }
+
+    public function onBeforePostDelete(OW_Event $event)
+    {
+        //Get parameter for check pluginKey for this event
+        var_dump($event);
+        $params = $event->getParams();
+        VISUALMELODY_BOL_Service::getInstance()->deleteScoreById($params['entityId']);
     }
 }

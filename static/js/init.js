@@ -12,10 +12,12 @@ $(document).ready(function () {
         ren.init();
     }, false);
     document.getElementById("add").addEventListener("click", function () {
+        previewFloatBox.close();
         var vmData = ren.saveData();
         $('input[name=vmHidden]').val(JSON.stringify(vmData));
         var ren2 = new Renderer("feed_score", "feed_scoreDiv", "feed_vmCanvas");
-        document.getElementById("vm_placeholder").style.display = "block";
+        var placeholder = document.getElementById("vm_placeholder");
+        placeholder.style.display = "block";
         ren2.restoreData(vmData);
     });
     document.getElementById("ks").addEventListener("change", preview, false);

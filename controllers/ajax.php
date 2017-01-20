@@ -152,7 +152,7 @@ class VISUALMELODY_CTRL_Ajax extends NEWSFEED_CTRL_Ajax
                 "",//$clean['description'],
                 OW::getUser()->getId(),
                 //$clean['title'],
-                "test",
+                $clean['scoreTitle'],
                 $out['entityId']
             );
         }
