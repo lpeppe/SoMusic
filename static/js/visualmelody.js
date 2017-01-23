@@ -4,7 +4,7 @@ document.getElementsByName("save")[0].addEventListener("click", function (e) {
     document.getElementById("vm_placeholder").style.display = "none";
 });
 
-OwComments.prototype.initTextarea = function()
+/*OwComments.prototype.initTextarea = function()
 {
     var self = this;
     this.realSubmitHandler = function(){
@@ -71,7 +71,7 @@ OwComments.prototype.initTextarea = function()
             }
         });
     }
-};
+};*/
 
 VISUALMELODY.commentSendMessage = function(message, context)
 {

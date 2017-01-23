@@ -287,9 +287,9 @@ Renderer.prototype.addNote = function (e) {
     var voice = getRadioSelected("voice");
     var pitch = r.calculatePitch(e, voice);
     var newNote;
-    if (pitch.split("/")[0] == "b" || pitch.split("/")[0] == "e" && accidental == "#")
+    if ((pitch.split("/")[0] == "b" || pitch.split("/")[0] == "e") && accidental == "#")
         accidental = "clear"
-    if (pitch.split("/")[0] == "f" || pitch.split("/")[0] == "c" && accidental == "b")
+    if ((pitch.split("/")[0] == "f" || pitch.split("/")[0] == "c") && accidental == "b")
         accidental = "clear"
     if (voice == "basso" || voice == "tenore")
         newNote = new Vex.Flow.StaveNote({clef: "bass", keys: [pitch], duration: duration});
