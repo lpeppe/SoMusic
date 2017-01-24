@@ -53,24 +53,24 @@ vmRenderer.prototype.createTrajectories = function () {
                     var last;
                     if (i > 0 && (last = this.findLastNote(k, voiceName))[0]) {
                         firstX = last[1].getBoundingBox().getX();
-                        firstY = this.getCanvasPosition(last[1].getBoundingBox().getY(), voiceName);
+                        firstY = this.getCanvasPosition(last[1].getBoundingBox().getY(), voiceName, last[1].duration);
                         this.trajectories[voiceName].push(new segment(firstX, firstY,
-                            notes[j].getBoundingBox().getX(), this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName), this.ctx));
+                            notes[j].getBoundingBox().getX(), this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName, notes[j].duration), this.ctx));
                         firstX = notes[j].getBoundingBox().getX();
-                        firstY = this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName);
+                        firstY = this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName, notes[j].duration);
                         count++;
                     }
                     else {
                         firstX = notes[j].getBoundingBox().getX();
-                        firstY = this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName);
+                        firstY = this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName, notes[j].duration);
                         count++;
                     }
                 }
                 else {
                     this.trajectories[voiceName].push(new segment(firstX, firstY,
-                        notes[j].getBoundingBox().getX(), this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName), this.ctx));
+                        notes[j].getBoundingBox().getX(), this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName, notes[j].duration), this.ctx));
                     firstX = notes[j].getBoundingBox().getX();
-                    firstY = this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName);
+                    firstY = this.getCanvasPosition(notes[j].getBoundingBox().getY(), voiceName, notes[j].duration);
                 }
             }
         }
@@ -238,10 +238,10 @@ vmRenderer.prototype.calcIntersectionsBetweenVoices = function (firstVoice, seco
     }
 }
 
-vmRenderer.prototype.getCanvasPosition = function (y, voiceName) {
+vmRenderer.prototype.getCanvasPosition = function (y, voiceName, duration) {
     if (voiceName == "alto" || voiceName == "soprano")
         y += 40;
-    if (voiceName == "tenore" || voiceName == "soprano")
+    if ((voiceName == "tenore" || voiceName == "soprano") && duration != 'w')
         y += 30;
     return ((y - 55) / 180) * 125;
 }
