@@ -1,10 +1,10 @@
 <?php
 
-class VISUALMELODY_CTRL_Vm extends OW_ActionController
+class SOMUSIC_CTRL_Vm extends OW_ActionController
 {
     public function index()
     {
-        $this->setPageTitle("Visual Melody");
-        $this->setPageHeading("Visual Melody");
+        $this->setPageTitle("SoMusic!");
+        $this->setPageHeading("SoMusic!");
     }
 }

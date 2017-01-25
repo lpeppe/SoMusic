@@ -1,5 +1,5 @@
 <?php
-$sql = 'CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'visual_melody` (
+$sql = 'CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'somusic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_owner` int(11) NOT NULL,
   `data` mediumtext NOT NULL,
@@ -10,7 +10,7 @@ $sql = 'CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'visual_melody` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
-CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'visual_melody_post` (
+CREATE TABLE IF NOT EXISTS `' . OW_DB_PREFIX . 'somusic_post` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `id_melody` int(11) NOT NULL,
     `id_post` int(11) NOT NULL,

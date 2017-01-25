@@ -1,5 +1,5 @@
 <?php
-class VISUALMELODY_BOL_VisualmelodyPostDao extends OW_BaseDao
+class SOMUSIC_BOL_SomusicPostDao extends OW_BaseDao
 {
     /**
      * Constructor.
@@ -12,14 +12,14 @@ class VISUALMELODY_BOL_VisualmelodyPostDao extends OW_BaseDao
     /**
      * Singleton instance.
      *
-     * @var VISUALMELODY_BOL_VisualmelodyPostDao
+     * @var SOMUSIC_BOL_SomusicPostDao
      */
     private static $classInstance;
 
     /**
      * Returns an instance of class (singleton pattern implementation).
      *
-     * @return VISUALMELODY_BOL_VisualmelodyPostDao
+     * @return SOMUSIC_BOL_SomusicPostDao
      */
     public static function getInstance()
     {
@@ -37,7 +37,7 @@ class VISUALMELODY_BOL_VisualmelodyPostDao extends OW_BaseDao
      */
     public function getDtoClassName()
     {
-        return 'VISUALMELODY_BOL_VisualmelodyPost';
+        return 'SOMUSIC_BOL_SomusicPost';
     }
 
     /**
@@ -46,6 +46,6 @@ class VISUALMELODY_BOL_VisualmelodyPostDao extends OW_BaseDao
      */
     public function getTableName()
     {
-        return OW_DB_PREFIX . 'visual_melody_post';
+        return OW_DB_PREFIX . 'somusic_post';
     }
 }

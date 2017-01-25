@@ -1,5 +1,5 @@
 <?php
-class VISUALMELODY_BOL_Visualmelody extends OW_Entity
+class SOMUSIC_BOL_Somusic extends OW_Entity
 {
     public $id_owner;
     public $data;

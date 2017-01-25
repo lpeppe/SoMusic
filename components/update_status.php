@@ -1,5 +1,5 @@
 <?php
-class VISUALMELODY_CMP_UpdateStatus extends NEWSFEED_CMP_UpdateStatus
+class SOMUSIC_CMP_UpdateStatus extends NEWSFEED_CMP_UpdateStatus
 {
     public function __construct( $feedAutoId, $feedType, $feedId, $actionVisibility = null )
     {
@@ -19,13 +19,13 @@ class VISUALMELODY_CMP_UpdateStatus extends NEWSFEED_CMP_UpdateStatus
         $script = "            
             $('#{$vmButton->getId()}').click(function(e){
                 //if(typeof previewFloatBox === 'undefined')
-                    previewFloatBox = OW.ajaxFloatBox('VISUALMELODY_CMP_Preview', {component:'map-controllet'} , {top:'56px', width:'calc(100vw - 112px)', height:'calc(100vh - 112px)', iconClass: 'ow_ic_add', title: ''});
+                    previewFloatBox = OW.ajaxFloatBox('SOMUSIC_CMP_Preview', {component:'map-controllet'} , {top:'56px', width:'calc(100vw - 112px)', height:'calc(100vh - 112px)', iconClass: 'ow_ic_add', title: ''});
                
             });
         ";
         OW::getDocument()->addOnloadScript($script);
 
-        $form->setAction( OW::getRequest()->buildUrlQueryString(OW::getRouter()->urlFor('VISUALMELODY_CTRL_Ajax', 'statusUpdate')) );
+        $form->setAction( OW::getRequest()->buildUrlQueryString(OW::getRouter()->urlFor('SOMUSIC_CTRL_Ajax', 'statusUpdate')) );
         return $form;
     }
 }

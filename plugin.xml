@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-    <name>Visual Melody</name>
-    <key>visualmelody</key>
+    <name>SoMusic!</name>
+    <key>somusic</key>
     <description>Keep your scores on oxwall!</description>
     <author>Luca Peppe</author>
     <authorEmail>plugins@oxwall.org</authorEmail>

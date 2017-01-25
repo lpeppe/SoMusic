@@ -1,6 +1,6 @@
 <?php
 
-class VISUALMELODY_CTRL_Ajax extends NEWSFEED_CTRL_Ajax
+class SOMUSIC_CTRL_Ajax extends NEWSFEED_CTRL_Ajax
 {
     public function addComment()
     {
@@ -41,7 +41,7 @@ class VISUALMELODY_CTRL_Ajax extends NEWSFEED_CTRL_Ajax
         }
 
         $comment = BOL_CommentService::getInstance()->addComment($params->getEntityType(), $params->getEntityId(), $params->getPluginKey(), OW::getUser()->getId(), $commentText, $attachment);
-        VISUALMELODY_BOL_Service::getInstance()->addMelodyOnPost(
+        SOMUSIC_BOL_Service::getInstance()->addMelodyOnPost(
             $clean['vmJSONData'],
             $clean['description'],
             OW::getUser()->getId(),
@@ -145,9 +145,9 @@ class VISUALMELODY_CTRL_Ajax extends NEWSFEED_CTRL_Ajax
                 "attachmentId" => $attachId
             ));
 
-        /* VISUALMELODY */
+        /* SOMUSIC */
         if(!empty($clean['vmHidden'])) {
-            VISUALMELODY_BOL_Service::getInstance()->addMelodyOnPost(
+            SOMUSIC_BOL_Service::getInstance()->addMelodyOnPost(
                 $clean['vmHidden'],
                 "",//$clean['description'],
                 OW::getUser()->getId(),
@@ -156,7 +156,7 @@ class VISUALMELODY_CTRL_Ajax extends NEWSFEED_CTRL_Ajax
                 $out['entityId']
             );
         }
-        /* VISUALMELODY */
+        /* SOMUSIC */
 
         echo json_encode(array(
             "item" => $out

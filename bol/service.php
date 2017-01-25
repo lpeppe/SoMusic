@@ -1,11 +1,11 @@
 <?php
 
-class VISUALMELODY_BOL_Service
+class SOMUSIC_BOL_Service
 {
     /**
      * Singleton instance.
      *
-     * @var VISUALMELODY_BOL_Service
+     * @var SOMUSIC_BOL_Service
      */
     private static $classInstance;
 
@@ -25,16 +25,16 @@ class VISUALMELODY_BOL_Service
 
     public function addMelodyOnPost($data, $description, $id_owner, $title, $id_post)
     {
-        $dt = new VISUALMELODY_BOL_Visualmelody();
+        $dt = new SOMUSIC_BOL_Somusic();
         $dt->data = $data;
         $dt->description = $description;
         $dt->id_owner = $id_owner;
         $dt->title = $title;
-        VISUALMELODY_BOL_VisualmelodyDao::getInstance()->save($dt);
-        $dt2 = new VISUALMELODY_BOL_VisualmelodyPost();
+        SOMUSIC_BOL_SomusicDao::getInstance()->save($dt);
+        $dt2 = new SOMUSIC_BOL_SomusicPost();
         $dt2->id_melody = $dt->id;
         $dt2->id_post = $id_post;
-        VISUALMELODY_BOL_VisualmelodyPostDao::getInstance()->save($dt2);
+        SOMUSIC_BOL_SomusicPostDao::getInstance()->save($dt2);
         return $dt;
     }
 
@@ -42,19 +42,19 @@ class VISUALMELODY_BOL_Service
     {
         $dbo = OW::getDbo();
         $query = "SELECT *
-                  FROM ow_visual_melody_post JOIN ow_visual_melody ON ow_visual_melody_post.id_melody = ow_visual_melody.id
-                  WHERE ow_visual_melody_post.id_post = " . $id . ";";
+                  FROM ow_somusic_post JOIN ow_somusic ON ow_somusic_post.id_melody = ow_somusic.id
+                  WHERE ow_somusic_post.id_post = " . $id . ";";
         return $dbo->queryForRow($query);
     }
 
     public function deleteScoreById($id)
     {
         $dbo = OW::getDbo();
-        $query = "DELETE FROM ow_visual_melody, ow_visual_melody_post 
-                  USING ow_visual_melody_post 
-                  INNER JOIN ow_visual_melody 
-                  ON ow_visual_melody_post.id_melody = ow_visual_melody.id  
-                  WHERE ow_visual_melody_post.id_post = ".$id.';';
+        $query = "DELETE FROM ow_somusic, ow_somusic_post 
+                  USING ow_somusic_post 
+                  INNER JOIN ow_somusic 
+                  ON ow_somusic_post.id_melody = ow_somusic.id  
+                  WHERE ow_somusic_post.id_post = ".$id.';';
         $dbo->query($query);
     }
 }

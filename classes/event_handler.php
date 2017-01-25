@@ -1,6 +1,6 @@
 <?php
 
-class VISUALMELODY_CLASS_EventHandler
+class SOMUSIC_CLASS_EventHandler
 {
     private static $classInstance;
 
@@ -31,7 +31,7 @@ class VISUALMELODY_CLASS_EventHandler
         if (OW::getApplication()->isMobile()) {
             //TODO MOBILE PAGE REQUEST
         } else {
-            $ret = new VISUALMELODY_CMP_UpdateStatus($params['feedAutoId'], $params['entityType'], $params['entityId'], $params['visibility']);
+            $ret = new SOMUSIC_CMP_UpdateStatus($params['feedAutoId'], $params['entityType'], $params['entityId'], $params['visibility']);
         }
 
         $event->setData($ret);
@@ -40,20 +40,20 @@ class VISUALMELODY_CLASS_EventHandler
 
     public function onApplicationInit(OW_Event $event)
     {
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'vexflow-debug.js', 'text/javascript');
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'editorData.js', 'text/javascript');
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'visual-melody.js', 'text/javascript');
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'measure.js', 'text/javascript');
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'editor.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'vexflow-debug.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'editorData.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'visual-melody.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'measure.js', 'text/javascript');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'editor.js', 'text/javascript');
         // if request is Ajax, we don't need to re-execute the same code again!
         if (!OW::getRequest()->isAjax()) {
             //Add ODE.JS script to all the Oxwall pages and set THEME_IMAGES_URL variable with theme image url
-            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('visualmelody')->getStaticJsUrl() . 'visualmelody.js', 'text/javascript');
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'visualmelody.js', 'text/javascript');
         }
         $js = UTIL_JsGenerator::composeJsString('
                 VISUALMELODY.ajax_add_comment = {$ajax_add_comment}
             ', array(
-            'ajax_add_comment' => OW::getRouter()->urlFor('VISUALMELODY_CTRL_Ajax', 'addComment'),
+            'ajax_add_comment' => OW::getRouter()->urlFor('SOMUSIC_CTRL_Ajax', 'addComment'),
         ));
 
         OW::getDocument()->addOnloadScript($js);
@@ -63,7 +63,7 @@ class VISUALMELODY_CLASS_EventHandler
         //Get parameter for check pluginKey for this event
         $params = $event->getParams();
         $data = $event->getData();
-        $scoreData = VISUALMELODY_BOL_Service::getInstance()->getScoreByPostId($params['action']['entityId']);
+        $scoreData = SOMUSIC_BOL_Service::getInstance()->getScoreByPostId($params['action']['entityId']);
         //$data['content']['vars']['status'] .= " ciao " . $params['action']['entityId'];
         //$data['content']['vars']['status'] .= $scoreData['data'];
         if(!empty($scoreData)) {
@@ -80,6 +80,6 @@ class VISUALMELODY_CLASS_EventHandler
         //Get parameter for check pluginKey for this event
         var_dump($event);
         $params = $event->getParams();
-        VISUALMELODY_BOL_Service::getInstance()->deleteScoreById($params['entityId']);
+        SOMUSIC_BOL_Service::getInstance()->deleteScoreById($params['entityId']);
     }
 }
