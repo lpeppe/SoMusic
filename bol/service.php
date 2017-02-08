@@ -42,7 +42,9 @@ class SOMUSIC_BOL_Service
     {
         $dbo = OW::getDbo();
         $query = "SELECT *
-                  FROM ow_somusic_post JOIN ow_somusic ON ow_somusic_post.id_melody = ow_somusic.id
+                  FROM ow_somusic_post 
+                  JOIN ow_somusic 
+                  ON ow_somusic_post.id_melody = ow_somusic.id
                   WHERE ow_somusic_post.id_post = " . $id . ";";
         return $dbo->queryForRow($query);
     }

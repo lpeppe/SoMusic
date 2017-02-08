@@ -12,6 +12,7 @@ function Renderer(canvasId, scoreDivId, vmCanvasId) {
     //save $("#ks :selected").text() too
     //this.connection = new FireBaseConnection();
     this.user;
+    this.size;
 }
 
 Renderer.prototype.init = function () {
@@ -43,10 +44,10 @@ Renderer.prototype.init = function () {
 //renders all the measures
 Renderer.prototype.renderMeasures = function () {
     var r = this;
-    var size = 0;
+    r.size = 0;
     for (var i = 0; i < r.measures.length; i++)
-        size += r.measures[i].width;
-    r.VFRenderer.resize(size + 1500, 250);
+        r.size += r.measures[i].width;
+    r.VFRenderer.resize(r.size + 1500, 250);
     for (var i = 0; i < r.measures.length; i++) {
         if (i == 0)
             r.measures[i].render(10);
@@ -440,10 +441,6 @@ Renderer.prototype.saveData = function () {
     return data;
 }
 
-Renderer.prototype.loadData = function () {
-    r.connection.return_all_data(r.user.uid)
-}
-
 Renderer.prototype.restoreData = function (data) {
     var r = this;
     r.timeSign = data["timeSign"];
@@ -469,6 +466,7 @@ Renderer.prototype.restoreData = function (data) {
                 if (note["accidental"] != undefined)
                     vexNote.addAccidental(0, new Vex.Flow.Accidental(note["accidental"]));
                 r.measures[i].addNote(vexNote, voiceName, j);
+                r.renderAndDraw(); //it must be rendered in order to calculate measure width
             }
         }
         if (measure["ties"] != undefined) {

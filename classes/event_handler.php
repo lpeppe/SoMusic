@@ -60,24 +60,25 @@ class SOMUSIC_CLASS_EventHandler
     }
     public function onItemRender(OW_Event $event)
     {
-        //Get parameter for check pluginKey for this event
         $params = $event->getParams();
         $data = $event->getData();
         $scoreData = SOMUSIC_BOL_Service::getInstance()->getScoreByPostId($params['action']['entityId']);
-        //$data['content']['vars']['status'] .= " ciao " . $params['action']['entityId'];
-        //$data['content']['vars']['status'] .= $scoreData['data'];
         if(!empty($scoreData)) {
-            $data['content']['vars']['status'] .= '<div class="score_placeholder" id="score_placeholder_' .
-                $scoreData['id_post'] .'" style = "overflow-x: auto; overflow-y: hidden;' .'"></div>';
-            OW::getDocument()->addOnloadScript('VISUALMELODY.loadScore(' . $scoreData['data'] .
-                ',"score_placeholder_' . $scoreData['id_post'] . '","'.$scoreData['title'].'");');
+            $data['content']['vars']['status'] .=
+                '<div class="score_placeholder" id="score_placeholder_' .
+                $scoreData['id_post'] .
+                '" style = "overflow-x: auto; overflow-y: hidden;' .
+                '"></div>';
+            OW::getDocument()->addOnloadScript('VISUALMELODY.loadScore(' .
+                $scoreData['data'] .
+                ',"score_placeholder_' . $scoreData['id_post'] .
+                '","'.$scoreData['title'].'");');
         }
         $event->setData($data);
     }
 
     public function onBeforePostDelete(OW_Event $event)
     {
-        //Get parameter for check pluginKey for this event
         var_dump($event);
         $params = $event->getParams();
         SOMUSIC_BOL_Service::getInstance()->deleteScoreById($params['entityId']);

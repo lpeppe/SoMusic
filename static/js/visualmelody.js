@@ -1,9 +1,9 @@
 VISUALMELODY = {}
-
-document.getElementsByName("save")[0].addEventListener("click", function (e) {
-    document.getElementById("vm_placeholder").style.display = "none";
-});
-
+if(document.getElementsByName("save").length > 0) {
+    document.getElementsByName("save")[0].addEventListener("click", function (e) {
+        document.getElementById("vm_placeholder").style.display = "none";
+    });
+}
 /*OwComments.prototype.initTextarea = function()
 {
     var self = this;
@@ -126,16 +126,19 @@ VISUALMELODY.commentSendMessage = function(message, context)
 VISUALMELODY.loadScore = function (data, id, title) {
     var scoreDiv = document.getElementById(id);
     var titleField = document.createElement("p");
+    titleField.style.textAlign = "center";
+    titleField.style.fontSize= "large";
+    titleField.style.fontWeight = "bold";
+    titleField.style.paddingTop = "20px";
+    titleField.style.marginBottom = "0px";
     var nodeText = document.createTextNode(title);
     titleField.appendChild(nodeText);
-    scoreDiv.appendChild(nodeText);
+    scoreDiv.parentElement.insertBefore(titleField, scoreDiv);
     var scoreCanvas =  document.createElement('canvas');
     scoreCanvas.height = 600;
-    scoreCanvas.width = 800;
     scoreCanvas.id = id + "_sc";
     var vmCanvas = document.createElement('canvas');
     vmCanvas.height = 130;
-    vmCanvas.width = 800;
     vmCanvas.id = id + "_vmc";
     scoreDiv.appendChild(scoreCanvas);
     scoreDiv.appendChild(vmCanvas);
