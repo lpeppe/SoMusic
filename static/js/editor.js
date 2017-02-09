@@ -154,6 +154,8 @@ Renderer.prototype.calcNoteIndex = function (index, voiceName, x) {
 
 //delete the selected notes
 Renderer.prototype.delNotes = function (e, r) {
+    if(r.selectedNotes.length == 0)
+        r.shakeScore('No note selected');
     for (var i in r.selectedNotes) {
         var notes = r.measures[r.selectedNotes[i]["index"]].notesArr[r.selectedNotes[i]["voiceName"]];
         for (var j in notes)
@@ -246,6 +248,8 @@ Renderer.prototype.tie = function (e, r) {
             }
         }
     }
+    else
+        r.shakeScore('Tie error');
 }
 
 //TODO move to visual-melody.js
@@ -283,15 +287,37 @@ Renderer.prototype.areTied = function (firstNote, secondNote, index, sameMeasure
 //add the note to the stave
 Renderer.prototype.addNote = function (e) {
     var r = this;
+    var pitch;
     var duration = getRadioSelected("notes");
     var accidental = getRadioSelected("accidental");
     var voice = getRadioSelected("voice");
-    var pitch = r.calculatePitch(e, voice);
+    if(duration.indexOf('r') != -1) {
+        if(duration == 'wr') {
+            if (voice == 'basso' || voice == 'tenore')
+                pitch = 'f/3';
+            else
+                pitch = 'd/5';
+        }
+        else {
+            if (voice == 'basso' || voice == 'tenore')
+                pitch = 'd/3';
+            else
+                pitch = 'b/4';
+        }
+    }
+    else
+        pitch = r.calculatePitch(e, voice);
     var newNote;
-    if ((pitch.split("/")[0] == "b" || pitch.split("/")[0] == "e") && accidental == "#")
-        accidental = "clear"
-    if ((pitch.split("/")[0] == "f" || pitch.split("/")[0] == "c") && accidental == "b")
-        accidental = "clear"
+    try {
+        if ((pitch.split("/")[0] == "b" || pitch.split("/")[0] == "e") && accidental == "#")
+            accidental = "clear"
+        if ((pitch.split("/")[0] == "f" || pitch.split("/")[0] == "c") && accidental == "b")
+            accidental = "clear"
+    }
+    catch(err) {
+        r.shakeScore('Voice range exceeded!');
+        return;
+    }
     if (voice == "basso" || voice == "tenore")
         newNote = new Vex.Flow.StaveNote({clef: "bass", keys: [pitch], duration: duration});
     else
@@ -299,11 +325,15 @@ Renderer.prototype.addNote = function (e) {
     if (accidental != "clear" && !newNote.isRest())
         newNote.addAccidental(0, new Vex.Flow.Accidental(accidental));
     var i = r.getMeasureIndex(e.clientX - r.canvas.getBoundingClientRect().left);
-    if (r.measures[i].isEmpty())
-        r.measures[i].addNote(newNote, voice, 0);
+    if (r.measures[i].isEmpty()) {
+        var message = r.measures[i].addNote(newNote, voice, 0);
+        if (message == 'err')
+            r.shakeScore('Measure duration exceeded!');
+    }
     else {
         var pos = r.calcNoteIndex(i, voice, e.clientX - r.canvas.getBoundingClientRect().left);
-        r.measures[i].addNote(newNote, voice, pos);
+        if(r.measures[i].addNote(newNote, voice, pos) == 'err')
+            r.shakeScore('Measure duration exceeded!');
         r.measures[i].updateTiesIndex();
     }
     //add new measures
@@ -466,7 +496,7 @@ Renderer.prototype.restoreData = function (data) {
                 if (note["accidental"] != undefined)
                     vexNote.addAccidental(0, new Vex.Flow.Accidental(note["accidental"]));
                 r.measures[i].addNote(vexNote, voiceName, j);
-                r.renderAndDraw(); //it must be rendered in order to calculate measure width
+                r.measures[i].computeScale();
             }
         }
         if (measure["ties"] != undefined) {
@@ -495,6 +525,16 @@ Renderer.prototype.restoreData = function (data) {
         }
     }
     r.renderAndDraw();
+
+    Renderer.prototype.shakeScore = function(err){
+        var sc = document.getElementById('score');
+        sc.classList.remove("animated");
+        sc.classList.remove("shake");
+        void sc.offsetWidth;
+        sc.classList.add("animated");
+        sc.classList.add("shake");
+        sweetAlert('Oops...', err, 'error');
+    }
 }
 //return the radio element selected with the given name
 function getRadioSelected(name) {

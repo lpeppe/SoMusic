@@ -125,6 +125,7 @@ VISUALMELODY.commentSendMessage = function(message, context)
 
 VISUALMELODY.loadScore = function (data, id, title) {
     var scoreDiv = document.getElementById(id);
+    scoreDiv.parentElement.style.display = "none";
     var titleField = document.createElement("p");
     titleField.style.textAlign = "center";
     titleField.style.fontSize= "large";
@@ -144,4 +145,5 @@ VISUALMELODY.loadScore = function (data, id, title) {
     scoreDiv.appendChild(vmCanvas);
     var renderer = new Renderer(scoreCanvas.id, id, vmCanvas.id);
     renderer.restoreData(data);
+    scoreDiv.parentElement.style.display = "block";
 }

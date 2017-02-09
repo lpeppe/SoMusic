@@ -49,6 +49,7 @@ Measure.prototype.getIndex = function () {
  the voice is restored to the previous state*/
 Measure.prototype.addNote = function (note, voiceName, index) {
     this.notesArr[voiceName].splice(index, 0, note);
+    var toReturn = 'success';
     try {
         if (voiceName == "basso" || voiceName == "alto")
             note.setStemDirection(-1);
@@ -59,13 +60,16 @@ Measure.prototype.addNote = function (note, voiceName, index) {
         this.voices[voiceName].addTickables(this.notesArr[voiceName]);
     }
     catch (err) {
-        //this.notesArr[voiceName].pop();
         this.notesArr[voiceName].splice(index, 1);
         this.voices[voiceName] = new Vex.Flow.Voice({
             num_beats: this.beatNum, beat_value: this.beatValue,
             resolution: Vex.Flow.RESOLUTION
         }).setMode(3);
         this.voices[voiceName].addTickables(this.notesArr[voiceName]);
+        toReturn = 'err';
+    }
+    finally {
+        return toReturn;
     }
 }
 

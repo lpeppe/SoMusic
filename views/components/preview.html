@@ -2,37 +2,37 @@
 {literal}
 
 .descr {
-    margin-top: 20px;
+margin-top: 20px;
 }
 
 .row {
-    padding-bottom: 50px;
+padding-bottom: 50px;
 }
 #firstDiv, #secondDiv {
-    width: 75vw;
-    height: 75vh;
+width: 75vw;
+height: 80vh;
 }
 #secondDiv {
-    display: none;
-    overflow-x: hidden;
-    padding-top: 0px;
+display: none;
+overflow-x: hidden;
+padding-top: 0px;
 }
 .ow_bg_color{
-    background-image: url('http://lundentreux.info/infographie/Effetsfiltre/U/ulimitedpaperbackground/Paper%20Background%20-%20Canvas,%20Painted%20White,%20Fine%202.jpg');
-    background-repeat:repeat;
+background-image: url('http://lundentreux.info/infographie/Effetsfiltre/U/ulimitedpaperbackground/Paper%20Background%20-%20Canvas,%20Painted%20White,%20Fine%202.jpg');
+background-repeat:repeat;
 }
 .noteImg {
-    width: 20px;
-    height: 20px;
+width: 20px;
+height: 20px;
 }
-.floatbox_header {
-    display: none;
+.floatbox_header, .floatbox_bottom{
+display: none;
 }
 {/literal}
 {/style}
-<div class="section" id="firstDiv">
+<div class="section fadeIn animated" id="firstDiv">
     <!--<div class="container">-->
-    <div class="row text-center" style="padding-bottom: 0px">
+    <div class="row text-center slideInRight animated" style="padding-bottom: 0px">
         <div class="col-md-12">
             <label class="descr">Time signature: </label><br/>
             <div class="btn-group" data-toggle="buttons">
@@ -63,20 +63,20 @@
             </div>
         </div>
     </div>
-    <div class="row text-center" style="padding-bottom: 0px">
+    <div class="row text-center zoomIn animated" style="padding-bottom: 0px">
         <div class="col-md-12">
             <label class="descr">Key signature: </label><br/>
             <select id="ks">
             </select>
         </div>
     </div>
-    <div class="row text-center" style="padding-bottom: 0px">
+    <div class="row text-center slideInLeft animated" style="padding-bottom: 0px">
         <div class="col-md-12" id="prev"></div>
     </div>
-    <div class="row text-center">
+    <div class="row text-center fadeIn animated">
         <div class="col-md-12">
             <span class="rounded_attachment_btn" style="text-align: center">
-                <span class="ow_button">
+                <span class="ow_button fadeInUp animated">
                     <input type="button" id="next" value="Next"></input>
                 </span>
             </span>
@@ -91,9 +91,9 @@
     </div>-->
     <!--</div>-->
 </div>
-<div class="section" id="secondDiv">
+<div class="section fadeIn animated" id="secondDiv">
     <div class="container">
-        <div class="row">
+        <div class="row fadeInDown animated">
             <div class="col-md-4">
                 <label>Duration: </label><br/>
                 <div class="btn-group" data-toggle="buttons">
@@ -177,34 +177,35 @@
                     </label>
                 </div>
             </div>
-            <div class="row row-centered" style="padding-bottom: 20px">
-                <div class="col-md-12 col-centered">
-                    <div id="scoreDiv" style="overflow-x: auto; overflow-y: hidden; width: 800px; height: 270px">
-                        <canvas id="score" height="600" width="800">
-                        </canvas>
-                        <canvas id="vmCanvas" width="800" height="130" style="display: none;">
-                        </canvas>
-                    </div>
+        </div>
+        <div class="row row-centered zoomIn animated" style="padding-bottom: 20px">
+            <div class="col-md-12 col-centered">
+                <div id="scoreDiv" style="overflow-x: auto; overflow-y: hidden; width: 800px; height: 270px">
+                    <canvas id="score" height="600" width="800">
+                    </canvas>
+                    <canvas id="vmCanvas" class = "slideInRight animated" width="800" height="130" style="display: none;">
+                    </canvas>
                 </div>
             </div>
-            <div class="row" style="padding-bottom: 0px">
-                <div class="container">
-                    <button type="button" class="btn btn-danger" id="del">Delete</button>
-                    <button type="button" class="btn btn-warning" id="visualMelody">Visual Melody</button>
-                    <button type="button" class="btn btn-success" id="tie">Tie</button>
-                    <!-- this is a test-->
+        </div>
+        <div class="row fadeInUp animated" style="padding-bottom: 0px">
+            <div class="container">
+                <button type="button" class="btn btn-danger" id="del">Delete</button>
+                <button type="button" class="btn btn-warning" id="visualMelody">Visual Melody</button>
+                <button type="button" class="btn btn-success" id="tie">Tie</button>
+                <!-- this is a test-->
 
-                </div>
             </div>
-            <div class="row text-right">
+        </div>
+        <div class="row text-right fadeInUp animated">
                 <span class="rounded_attachment_btn">
                         <span class="ow_button" style="margin-right: 30vw">
                             <input type="button" id="add" value="Add"/>
                         </span>
                     </span>
-            </div>
         </div>
     </div>
+</div>
 </div>
 <script type="text/javascript">
     var keySig = document.getElementById("ks");

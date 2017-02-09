@@ -40,6 +40,9 @@ class SOMUSIC_CLASS_EventHandler
 
     public function onApplicationInit(OW_Event $event)
     {
+        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('somusic')->getStaticCssUrl() . 'animate.css');
+        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('somusic')->getStaticCssUrl() . 'sweetalert.css');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'sweetalert.min.js', 'text/javascript');
         OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'vexflow-debug.js', 'text/javascript');
         OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'editorData.js', 'text/javascript');
         OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('somusic')->getStaticJsUrl() . 'visual-melody.js', 'text/javascript');
@@ -65,10 +68,10 @@ class SOMUSIC_CLASS_EventHandler
         $scoreData = SOMUSIC_BOL_Service::getInstance()->getScoreByPostId($params['action']['entityId']);
         if(!empty($scoreData)) {
             $data['content']['vars']['status'] .=
-                '<div class="score_placeholder" id="score_placeholder_' .
+                '<span class = "zoomIn animated"><div class="score_placeholder" id="score_placeholder_' .
                 $scoreData['id_post'] .
                 '" style = "overflow-x: auto; overflow-y: hidden;' .
-                '"></div>';
+                '"></div></span>';
             OW::getDocument()->addOnloadScript('VISUALMELODY.loadScore(' .
                 $scoreData['data'] .
                 ',"score_placeholder_' . $scoreData['id_post'] .

@@ -54,17 +54,19 @@ font-size: large;
                 </span>
             </span>
             <!-- SOMUSIC! -->
+            <span style= "display: block;" class = "bounceInLeft animated">
             <span class="ow_attachment_btn rounded_attachment_btn">{submit name="vm_open_dialog"}</span>
+            </span>
             <!-- SOMUSIC! -->
             <span class="ow_side_preloader_wrap"><span class="ow_side_preloader ow_inprogress newsfeed-status-preloader" style="display: none;"></span></span>
         </div>
     </div>
 
-    <div style="display: none" id="vm_placeholder" class="ow_box ow_no_cap">
-        <div id="feed_scoreDiv" style="overflow-x: auto; overflow-y: hidden; width: 800px; height: 270px">
+    <div style="display: none; overflow-x: auto; overflow-y: hidden;" id="vm_placeholder" class="ow_box ow_no_cap zoomIn animated">
+        <div id="feed_scoreDiv" style="width: 800px; height: 270px">
             <canvas id="feed_score" height="600" width="800">
             </canvas>
-            <canvas id="feed_vmCanvas" width="800" height="130">
+            <canvas id="feed_vmCanvas" width="800" height="130" style="display: none">
             </canvas>
         </div>
     </div>
