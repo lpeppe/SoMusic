@@ -61,15 +61,32 @@ font-size: large;
             <span class="ow_side_preloader_wrap"><span class="ow_side_preloader ow_inprogress newsfeed-status-preloader" style="display: none;"></span></span>
         </div>
     </div>
-
-    <div style="display: none; overflow-x: auto; overflow-y: hidden;" id="vm_placeholder" class="ow_box ow_no_cap zoomIn animated">
-        <div id="feed_scoreDiv" style="width: 800px; height: 270px">
-            <canvas id="feed_score" height="600" width="800">
-            </canvas>
-            <canvas id="feed_vmCanvas" width="800" height="130" style="display: none">
-            </canvas>
+    <div style="display: none; overflow-x: auto; overflow-y: hidden" id="vm_placeholder" class="ow_box zoomIn animated">
+        <div class = "row" style="padding-bottom: 0px">
+            <div class="col-md-12 text-right">
+                <button type="button" class="close" aria-label="Close" id="removeScore">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 5px">
+            <div class="col-md-12">
+                <p style="font-weight: bold" class="text-center">Title</p>
+            </div>
+        </div>
+        <div>
+            <div class="col-md-12 text-center">
+                <input type="text" id ="score_title_text">
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 0px;">
+            <div id="feed_scoreDiv" style="width: 800px; height: 270px; cursor: pointer;" class = "col-md-12">
+                <canvas id="feed_score" height="600" width="800">
+                </canvas>
+                <canvas id="feed_vmCanvas" width="800" height="130" style="display: none">
+                </canvas>
+            </div>
         </div>
     </div>
-
 </div>
 {/form}

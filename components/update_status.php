@@ -18,9 +18,17 @@ class SOMUSIC_CMP_UpdateStatus extends NEWSFEED_CMP_UpdateStatus
         $form->addElement($scoreTitle);
         $script = "            
             $('#{$vmButton->getId()}').click(function(e){
-                //if(typeof previewFloatBox === 'undefined')
-                    //previewFloatBox = OW.ajaxFloatBox('SOMUSIC_CMP_Preview', {component:'map-controllet'} , {top:'56px', width:'calc(100vw - 112px)', height:'calc(100vh - 112px)', iconClass: 'ow_ic_add', title: ''});
-                    previewFloatBox = OW.ajaxFloatBox('SOMUSIC_CMP_Preview', {component:'map-controllet'} , {top:'calc(5vh)', width:'calc(80vw)', height:'calc(85vh)', iconClass: 'ow_ic_add', title: ''});
+                if(typeof previewFloatBox != 'undefined' || document.getElementsByName('floatbox_canvas').length > 0) {
+                    $('.floatbox_canvas').each(function(i, obj) {
+                        obj.style.display = 'block';
+                    });
+                    if(document.getElementById('floatbox_overlay') != null)
+                        document.getElementById('floatbox_overlay').style.display = 'block';
+                    previewFloatBox.close();
+                    //delete previewFloatBox;
+                }
+                previewFloatBox = OW.ajaxFloatBox('SOMUSIC_CMP_Preview', {component:'map-controllet'} , {top:'calc(5vh)', width:'calc(80vw)', height:'calc(85vh)', iconClass: 'ow_ic_add', title: ''});
+                document.getElementById('vm_placeholder').style.display = 'none';
             });
         ";
         OW::getDocument()->addOnloadScript($script);

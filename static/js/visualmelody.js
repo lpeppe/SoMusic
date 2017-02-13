@@ -162,35 +162,17 @@ VISUALMELODY.initEditor = function () {
         ren.init();
     }, false);
     document.getElementById("add").addEventListener("click", function () {
-        previewFloatBox.close();
-        var vmData = ren.saveData();
-        $('input[name=vmHidden]').val(JSON.stringify(vmData));
-        var ren2 = new Renderer("feed_score", "feed_scoreDiv", "feed_vmCanvas");
-        var placeholder = document.getElementById("vm_placeholder");
-        var titleText;
-        if (placeholder.childNodes.length == 3) {
-            titleText = document.createElement('input');
-            titleText.setAttribute("type", "text");
-            titleText.id = "score_title_text";
-            placeholder.insertBefore(titleText, placeholder.childNodes[0]);
-            var para = document.createElement("p");
-            var node = document.createTextNode("Title");
-            para.style.textAlign = "center";
-            para.style.fontWeight = "bold";
-            para.appendChild(node);
-            placeholder.insertBefore(para, placeholder.childNodes[0]);
-            titleText.addEventListener("change", function () {
-                $('input[name=scoreTitle]').val($('#score_title_text').val());
-            });
-        }
-        placeholder.style.display = "block";
-        ren2.restoreData(vmData);
+        VISUALMELODY.addListener(ren);
     });
+    document.getElementById('feed_scoreDiv').addEventListener("click", VISUALMELODY.modScore);
+    document.getElementById("removeScore").addEventListener("click", VISUALMELODY.removeScore, false);
     document.getElementById("ks").addEventListener("change", preview, false);
+    document.getElementById('score_title_text').addEventListener("change", function () {
+        $('input[name=scoreTitle]').val($('#score_title_text').val());
+    });
     var elements = document.getElementsByName("timeLab");
     for (var i = 0; i < elements.length; i++)
         elements[i].addEventListener("click", preview, false);
-    document.getElementById("ks").addEventListener("change", preview, false);
     var prevDiv = document.getElementById("prev");
     var renderer = new Vex.Flow.Renderer(prevDiv, Vex.Flow.Renderer.Backends.SVG);
     var ctx = renderer.getContext();
@@ -208,4 +190,42 @@ VISUALMELODY.initEditor = function () {
         prevStave.addClef("treble").addTimeSignature(timeSign).addKeySignature(keySign);
         prevStave.setContext(ctx).draw();
     }
+}
+
+VISUALMELODY.removeScore = function () {
+    $('input[name=vmHidden]').val('');
+    document.getElementById("vm_placeholder").style.display = "none";
+    previewFloatBox.close();
+    delete previewFloatBox;
+    $('.floatbox_canvas').each(function(i, obj) {
+        obj.style.display = 'block';
+    });
+    if(document.getElementById('floatbox_overlay') != null)
+        document.getElementById('floatbox_overlay').style.display = 'block';
+}
+
+VISUALMELODY.modScore = function (vmData) {
+    document.getElementById("vm_placeholder").style.display = "none";
+    $('.floatbox_canvas').each(function(i, obj) {
+        obj.style.display = 'block';
+    });
+    document.getElementById('floatbox_overlay').style.display = 'block';
+    $('input[name=vmHidden]').val('');
+}
+
+VISUALMELODY.addListener = function (ren) {
+    document.getElementById('score').classList.remove("shake");
+    document.getElementById('score').classList.remove("animated");
+    $('.floatbox_canvas').each(function(i, obj) {
+        obj.style.display = 'none';
+    });
+    document.getElementById('floatbox_overlay').style.display = 'none';
+    var vmData = ren.saveData();
+    $('input[name=vmHidden]').val(JSON.stringify(vmData));
+    var ren2 = new Renderer("feed_score", "feed_scoreDiv", "feed_vmCanvas");
+    document.getElementById("vm_placeholder").style.display = "block";
+    ren2.restoreData(vmData);
+    document.getElementById('score_title_text').value = "";
+    $('input[name=scoreTitle]').val('');
+    document.getElementsByTagName("BODY")[0].classList.remove("floatbox_nooverflow");
 }
